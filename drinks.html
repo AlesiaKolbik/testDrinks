@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</head>
+<body>
+Ваше имя: <input type=text id='IName'><br />
+Ваш возраст: <input type=text id='IAge'><br />
+<input type=button value='Запомнить меня' onclick='storeInfo()'>
+<script>
+    "use strict";
+
+    var ajaxHandlerScript="http://fe.it-academy.by/AjaxStringStorage2.php";
+
+
+
+    function storeInfo() {
+        var info={
+            name : document.getElementById('IName').value,
+            age : document.getElementById('IAge').value
+        };
+        $.ajax( {
+                url : ajaxHandlerScript, type : 'POST', cache : false, dataType:'json',
+                data : { f : 'INSERT', n : 'testSvidunovichDo_02', v : JSON.stringify(info)},
+                success : successHandler, error : errorHandler
+            }
+        );
+    }
+    function errorHandler(jqXHR,statusStr,errorStr) {
+        alert(statusStr+' '+errorStr);
+    }
+    function successHandler() {
+        alert("success");
+    }
+
+</script>
+</body>
+</html>
